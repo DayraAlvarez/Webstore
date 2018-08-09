@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
-    <h1>Items</h1>
+    <h1>Santa's warehouse</h1>
+    <p>It's never too soonto buy your Christmas presents!</p>
     <li v-for="result in results">
     <router-link :to="{ name: 'Detail', params: { id: result.id }}">{{result.title}}</router-link>
 
@@ -26,7 +27,6 @@ export default {
     },
   methods : {
     fetchData() {
-      alert('sas');
       axios.get("https://api.mercadolibre.com/sites/MLM/search?q=" + this.search)
       .then((res) => {
         this.results = res.data.results;
@@ -40,6 +40,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+* {
+  margin: 0%;
+  padding: 0%;
+}
+
 h1, h2 {
   font-weight: normal;
 }
