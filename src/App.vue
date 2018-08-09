@@ -8,8 +8,8 @@
     <b-nav-item>Blog</b-nav-item>
   </b-nav>
     <b-nav-form>
-        <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search"/>
-        <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+        <b-form-input v-model="search" size="sm" class="mr-sm-2" type="text" placeholder="Search"/>
+        <b-button v-on:click="searchElements" size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
       </b-nav-form>
 </div>
     <router-view/>
@@ -17,8 +17,28 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
-  name: 'App'
+  name: 'App',
+  data () {
+    return {
+      search: "",
+      results: []
+    }
+  },
+  methods: {
+     searchElements () {
+       let url = "https://api.mercadolibre.com/sites/MLM/search?q=" + this.search;
+       console.log(url);
+       axios.get(url)
+      .then((res) => {
+        console.log(res);
+        this.results = res.data.results;
+      }).catch((err) => {
+          console.log(err, 'err' );
+      });
+     }
+  }
 }
 </script>
 

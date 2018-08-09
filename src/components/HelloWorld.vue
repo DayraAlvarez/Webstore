@@ -2,7 +2,8 @@
   <div class="hello">
     <h1>Items</h1>
     <li v-for="result in results">
-      <router-link to="/detail/{{result.id}}">{{ result.title }}</router-link>{{ result.title }}
+    <router-link :to="{ name: 'Detail', params: { id: result.id }}">{{result.title}}</router-link>
+
     </li>
   </div>
 </template>
@@ -13,7 +14,8 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      results: []
+      results: [],
+      search : "juguetes"
     }
   },
   created () {
@@ -25,7 +27,7 @@ export default {
   methods : {
     fetchData() {
       alert('sas');
-      axios.get("https://api.mercadolibre.com/sites/MLA/search?q=juguetes")
+      axios.get("https://api.mercadolibre.com/sites/MLM/search?q=" + this.search)
       .then((res) => {
         this.results = res.data.results;
       }).catch((err) => {
